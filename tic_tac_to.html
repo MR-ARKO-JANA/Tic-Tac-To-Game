@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tic_tac_to.css">
+</head>
+
+<body>
+    <div class="styling">
+        <h1 class="tic">Tic Tac Toe</h1>
+        <span id="winname"></span>
+        <div class="styleone">
+            <div class="stylesec">
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+
+            </div>
+        </div>
+        <button class="letstart">Reset</button>
+    </div>
+    <script>
+        let buttons=document.querySelectorAll(".box")
+        let reset=document.querySelector(".letstart")
+        let turnO=true
+         const resetfun= () =>{
+            for(box of buttons){
+                box.disabled=false
+                box.innerText=""
+            }
+         }
+        const winingarr = [
+            [0, 1, 2],
+            [0, 3, 6],
+            [0, 4, 8],
+            [1, 4, 7],
+            [2, 5, 8],
+            [2, 4, 6],
+            [3, 4, 5],
+            [6, 7, 8],
+        ]
+
+        buttons.forEach((box) => {
+            box.addEventListener("click", () => {
+                if(turnO) {
+                    box.innerText = "O"
+                    turnO = false
+                }
+                else {
+                    box.innerText = "X"
+                    turnO = true
+                }
+                box.disabled = true
+                checkwin()
+            })
+        })
+        const checkwin= () =>{
+            for(let pattern of winingarr){
+                patt1=buttons[pattern[0]].innerText
+                patt2=buttons[pattern[1]].innerText
+                patt3=buttons[pattern[2]].innerText
+                if(patt1!=="" || patt2!==""||patt3!==""){
+                    if(patt1===patt2 && patt2===patt3){
+                        document.getElementById("winname").innerText=patt1+" Is the Winer"
+                        for(box of buttons){
+                            box.disabled=true
+                        }
+                    }
+                }
+            }
+        }
+        reset.addEventListener("click",resetfun)
+    </script>
+    </body>
+</html>
